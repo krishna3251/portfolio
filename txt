@@ -1,0 +1,1428 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Krishna | Futuristic Portfolio</title>
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Rajdhani:wght@300;500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    :root {
+      --primary-color: #00ffea;
+      --primary-glow: rgba(0, 255, 234, 0.6);
+      --secondary-color: #ff00ff;
+      --background-dark: #0a0a14;
+      --card-bg: rgba(26, 26, 36, 0.8);
+      --text-light: #ffffff;
+    }
+    
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    
+    body {
+      font-family: 'Rajdhani', sans-serif;
+      background: var(--background-dark);
+      color: var(--text-light);
+      overflow-x: hidden;
+      transition: all 0.5s;
+      scroll-behavior: smooth;
+      line-height: 1.6;
+    }
+    
+    h1, h2, h3, h4 {
+      font-family: 'Orbitron', sans-serif;
+    }
+    
+    #particles-js {
+      position: fixed;
+      width: 100%;
+      height: 100%;
+      z-index: -1;
+    }
+    
+    .container {
+      width: 100%;
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 20px;
+    }
+    
+    .header {
+      text-align: center;
+      padding: 120px 20px 80px;
+      background: linear-gradient(135deg, rgba(10, 10, 20, 0.9), rgba(20, 20, 40, 0.8));
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .header::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: 
+        radial-gradient(circle at 20% 30%, var(--primary-glow) 0%, transparent 20%),
+        radial-gradient(circle at 80% 60%, rgba(255, 0, 255, 0.3) 0%, transparent 30%);
+      opacity: 0.5;
+      z-index: -1;
+    }
+    
+    .avatar-container {
+      position: relative;
+      width: 150px;
+      height: 150px;
+      margin: 0 auto 30px;
+    }
+    
+    .avatar {
+      width: 100%;
+      height: 100%;
+      border-radius: 50%;
+      border: 4px solid var(--primary-color);
+      position: relative;
+      z-index: 2;
+      transition: all 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+      object-fit: cover;
+    }
+    
+    .avatar-ring {
+      position: absolute;
+      top: -10px;
+      left: -10px;
+      width: calc(100% + 20px);
+      height: calc(100% + 20px);
+      border: 2px solid var(--primary-color);
+      border-radius: 50%;
+      animation: pulse 3s infinite;
+      z-index: 1;
+    }
+    
+    .avatar-container:hover .avatar {
+      transform: scale(1.1);
+      box-shadow: 0 0 30px var(--primary-glow);
+    }
+    
+    @keyframes pulse {
+      0% {
+        transform: scale(1);
+        opacity: 0.8;
+      }
+      50% {
+        transform: scale(1.1);
+        opacity: 0.5;
+      }
+      100% {
+        transform: scale(1);
+        opacity: 0.8;
+      }
+    }
+    
+    h1 {
+      font-size: 3.5rem;
+      font-weight: 700;
+      margin-bottom: 10px;
+      background: linear-gradient(to right, var(--primary-color), var(--secondary-color));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      text-shadow: 0 0 15px var(--primary-glow);
+    }
+    
+    p.subtitle {
+      font-size: 1.3rem;
+      letter-spacing: 2px;
+      color: #ccc;
+      margin-bottom: 20px;
+    }
+    
+    .social-icons {
+      margin-top: 30px;
+      display: flex;
+      justify-content: center;
+      gap: 20px;
+    }
+    
+    .social-icons a {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      font-size: 22px;
+      color: var(--primary-color);
+      background: rgba(0, 0, 0, 0.3);
+      border: 1px solid var(--primary-color);
+      transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .social-icons a::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: var(--primary-color);
+      opacity: 0;
+      transition: opacity 0.3s ease;
+      z-index: -1;
+    }
+    
+    .social-icons a:hover {
+      transform: translatex(-8px) rotate(10deg);
+      color: #111;
+      box-shadow: 0 10px 20px rgba(0, 255, 234, 0.4);
+    }
+    
+    .social-icons a:hover::before {
+      opacity: 1;
+    }
+    
+    .controls {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+      z-index: 100;
+    }
+    
+    .control-panel {
+      background: var(--card-bg);
+      backdrop-filter: blur(8px);
+      border: 1px solid var(--primary-color);
+      border-radius: 12px;
+      display: flex;
+      padding: 8px;
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+    }
+    
+    .control-panel button {
+      background: none;
+      color: var(--primary-color);
+      border: none;
+      padding: 8px 12px;
+      font-size: 18px;
+      cursor: pointer;
+      transition: all 0.3s;
+      border-radius: 8px;
+    }
+    
+    .control-panel button:hover {
+      background: rgba(0, 255, 234, 0.2);
+    }
+    
+    .color-picker {
+      display: flex;
+      align-items: center;
+    }
+    
+    .color-picker label {
+      margin-right: 10px;
+      font-family: 'Orbitron', sans-serif;
+      color: var(--primary-color);
+    }
+    
+    .color-picker input {
+      background: none;
+      border: none;
+      width: 40px;
+      height: 30px;
+      cursor: pointer;
+    }
+    
+    .content-section {
+      padding: 120px 0;
+      position: relative;
+    }
+    
+    .section-title {
+      text-align: center;
+      margin-bottom: 60px;
+      font-size: 2.5rem;
+      color: var(--primary-color);
+      text-shadow: 0 0 10px var(--primary-glow);
+    }
+    
+    .cards-container {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 30px;
+      transition: all 0.5s;
+    }
+    
+    /* Update the card class to use a more stable transform approach */
+.card {
+  width: 300px;
+  height: 380px;
+  position: relative;
+  margin: 0 15px;
+  transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  transform: perspective(1000px);
+}
+
+.card:hover {
+  transform: perspective(1000px) translateY(-15px) scale(1.02);
+  filter: drop-shadow(0 25px 25px rgba(0, 0, 0, 0.6));
+}
+
+.card-inner {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  transition: transform 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  transform-style: preserve-3d;
+}
+
+.card:hover .card-inner {
+  transform: rotateY(180deg);
+}
+
+.card-front, .card-back {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  backface-visibility: hidden;
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+}
+
+/* Enhanced card front with better glow effect */
+.card-front {
+  background: linear-gradient(145deg, rgba(26, 26, 36, 0.8), rgba(35, 35, 50, 0.9));
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 30px;
+  border: 1px solid rgba(0, 255, 234, 0.3);
+  position: relative;
+  overflow: hidden;
+}
+
+/* Create a more impressive border effect */
+.card-front::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    135deg, 
+    transparent 40%, 
+    var(--primary-color) 50%,
+    transparent 60%
+  );
+  z-index: -1;
+  border-radius: 16px;
+  opacity: 0.5;
+  filter: blur(5px);
+  animation: border-scanner 4s linear infinite;
+  transform: translateZ(0); /* Force GPU acceleration */
+}
+
+@keyframes border-scanner {
+  0% {
+    background-position: -500px 0;
+  }
+  100% {
+    background-position: 500px 0;
+  }
+}
+
+/* Better glow effect that doesn't rely on mousemove */
+.card-front .glow {
+  position: absolute;
+  width: 150px;
+  height: 150px;
+  background: radial-gradient(circle, var(--primary-color) 0%, transparent 70%);
+  filter: blur(25px);
+  opacity: 0;
+  transition: opacity 0.5s;
+  pointer-events: none;
+}
+
+.card:hover .card-front .glow {
+  opacity: 0.3;
+  animation: pulse-glow 2s infinite alternate;
+}
+
+@keyframes pulse-glow {
+  0% {
+    opacity: 0.1;
+    transform: scale(0.8);
+  }
+  100% {
+    opacity: 0.3;
+    transform: scale(1.2);
+  }
+}
+
+/* Enhanced card back with depth effect */
+.card-back {
+  background: rgba(20, 20, 30, 0.95);
+  transform: rotateY(180deg);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 40px 30px;
+  text-align: center;
+  border: 2px solid var(--primary-color);
+  position: relative;
+  overflow: hidden;
+}
+
+.card-back::after {
+  content: "";
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: radial-gradient(circle, var(--primary-color) 0%, transparent 30%);
+  opacity: 0.05;
+  pointer-events: none;
+}
+
+.card-back .card-title {
+  position: relative;
+  z-index: 1;
+}
+
+.card-back .card-title::after {
+  content: "";
+  position: absolute;
+  bottom: -8px;
+  left: 50%;
+  width: 40px;
+  height: 2px;
+  background: var(--primary-color);
+  transform: translateX(-50%);
+  box-shadow: 0 0 10px var(--primary-color);
+}
+
+/* Improve card floating animation to be more subtle */
+.card-motion {
+  animation: float-subtle 8s ease-in-out infinite;
+}
+
+@keyframes float-subtle {
+  0% {
+    transform: translateY(0) translateZ(0);
+  }
+  50% {
+    transform: translateY(-10px) translateZ(0);
+  }
+  100% {
+    transform: translateY(0) translateZ(0);
+  }
+}
+
+/* Additional glitch effect for card titles on hover */
+.card:hover .card-title {
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5),
+               0 0 8px var(--primary-color);
+  animation: text-flicker 3s linear infinite;
+}
+
+@keyframes text-flicker {
+  0%, 100% {
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5),
+                 0 0 8px var(--primary-color);
+  }
+  8%, 10% {
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5),
+                 0 0 15px var(--primary-color);
+  }
+  9%, 11%, 17%, 19% {
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5),
+                 0 0 8px var(--primary-color);
+  }
+  18%, 20%, 37%, 39% {
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5),
+                 0 0 15px var(--primary-color);
+  }
+  38%, 40%, 48%, 50% {
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5),
+                 0 0 8px var(--primary-color);
+  }
+}
+
+/* Improved icon effect */
+.card-icon {
+  font-size: 60px;
+  color: var(--primary-color);
+  margin-bottom: 20px;
+  position: relative;
+  z-index: 2;
+  animation: icon-pulse 3s infinite alternate;
+  transition: all 0.3s ease;
+}
+
+@keyframes icon-pulse {
+  0% { 
+    text-shadow: 0 0 8px var(--primary-color),
+                 0 0 15px var(--primary-glow);
+    transform: scale(1);
+  }
+  100% { 
+    text-shadow: 0 0 12px var(--primary-color),
+                 0 0 25px var(--primary-glow);
+    transform: scale(1.2);
+  }
+}
+
+.card:hover .card-icon {
+  animation: icon-hover 1.5s infinite alternate;
+}
+
+@keyframes icon-hover {
+  0% {
+    transform: scale(1.1) rotate(-5deg);
+    text-shadow: 0 0 15px var(--primary-color);
+  }
+  100% {
+    transform: scale(1.3) rotate(5deg);
+    text-shadow: 0 0 25px var(--primary-color);
+  }
+}
+
+/* Adjust layout list view to work with new card styles */
+.layout-list .card {
+  width: 80%;
+  max-width: 600px;
+  height: 200px;
+  margin: 0 auto 30px;
+}
+
+.layout-list .card-front {
+  flex-direction: row;
+  justify-content: flex-start;
+  padding: 20px 40px;
+}
+
+.layout-list .card-icon {
+  margin-right: 30px;
+  margin-bottom: 0;
+}
+
+/* Mobile responsiveness */
+@media (max-width: 768px) {
+  .card {
+    width: 100%;
+    max-width: 300px;
+    margin: 0 auto 40px;
+  }
+  
+  .layout-list .card {
+    width: 90%;
+    height: auto;
+  }
+  
+  .layout-list .card-front {
+    flex-direction: column;
+    padding: 30px;
+  }
+  
+  .layout-list .card-icon {
+    margin-right: 0;
+    margin-bottom: 20px;
+  }
+}
+    /* New cyberpunk button style */
+    .cyber-button {
+      --button-width: 180px;
+      --button-height: 45px;
+      --button-border-color: var(--primary-color);
+      --button-bg-color: rgba(0, 0, 0, 0.3);
+      --button-text-color: var(--primary-color);
+      --button-hover-bg: var(--primary-color);
+      --button-hover-text: #000;
+      
+      display: inline-block;
+      position: relative;
+      padding: 10px 30px;
+      width: var(--button-width);
+      height: var(--button-height);
+      background: var(--button-bg-color);
+      color: var(--button-text-color);
+      font-family: 'Orbitron', sans-serif;
+      font-size: 1rem;
+      text-align: center;
+      text-transform: uppercase;
+      text-decoration: none;
+      letter-spacing: 2px;
+      border: 1px solid var(--button-border-color);
+      transition: all 0.3s;
+      overflow: hidden;
+      z-index: 1;
+      border-radius: 4px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 8px 0;
+    }
+    
+    .cyber-button:before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: var(--button-hover-bg);
+      transition: left 0.3s;
+      z-index: -1;
+    }
+    
+    .cyber-button:hover {
+      color: var(--button-hover-text);
+    }
+    
+    .cyber-button:hover:before {
+      left: 0;
+    }
+    
+    .cyber-button:after {
+      content: '';
+      position: absolute;
+      top: -5px;
+      left: -5px;
+      right: -5px;
+      bottom: -5px;
+      border: 1px solid var(--button-border-color);
+      opacity: 0.5;
+      z-index: -2;
+      transform: skew(-2deg, -2deg);
+      transition: all 0.3s;
+      pointer-events: none;
+    }
+    
+    .cyber-button:hover:after {
+      transform: skew(0deg, 0deg);
+      opacity: 0.8;
+    }
+    
+    .project-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 30px;
+      margin-top: 50px;
+    }
+    
+    .project-card {
+      background: var(--card-bg);
+      border-radius: 12px;
+      overflow: hidden;
+      transition: all 0.4s ease;
+      border: 1px solid rgba(0, 255, 234, 0.3);
+      transform-style: preserve-3d; /* Added for better 3D effects */
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+    }
+    
+    .project-card:hover {
+      transform: translateY(-15px) scale(1.03);
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5);
+      border-color: var(--primary-color);
+    }
+    
+    .project-image {
+      width: 100%;
+      height: 200px;
+      object-fit: cover;
+      transition: all 0.4s ease;
+      transform-origin: center top;
+    }
+    
+    .project-card:hover .project-image {
+      transform: scale(1.05);
+      filter: brightness(1.1);
+    }
+    
+    .project-info {
+      padding: 20px;
+    }
+    
+    .project-title {
+      font-size: 1.4rem;
+      margin-bottom: 10px;
+      color: var(--primary-color);
+    }
+    
+    .project-desc {
+      font-size: 0.95rem;
+      color: #b0b0c0;
+      margin-bottom: 15px;
+    }
+    
+    .tech-stack {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+    
+    .tech-tag {
+      background: rgba(0, 255, 234, 0.15);
+      color: var(--primary-color);
+      padding: 4px 10px;
+      font-size: 0.85rem;
+      border-radius: 50px;
+    }
+    
+    .footer {
+      text-align: center;
+      padding: 50px 20px;
+      background: linear-gradient(0deg, rgba(10, 10, 14, 1), rgba(20, 20, 30, 0.9));
+      position: relative;
+      overflow: hidden;
+      margin-top: 50px;
+    }
+    
+    .footer::before {
+      content: '';
+      position: absolute;
+      width: 200%;
+      height: 2px;
+      top: 0;
+      left: -50%;
+      background: linear-gradient(to right, transparent, var(--primary-color), transparent);
+    }
+    
+    .copyright {
+      color: #666;
+      font-size: 1rem;
+      margin-top: 20px;
+    }
+    
+    .footer-logo {
+      font-size: 2rem;
+      font-weight: 700;
+      color: var(--primary-color);
+      margin-bottom: 15px;
+      position: relative;
+      display: inline-block;
+    }
+    
+    .footer-logo::after {
+      content: '';
+      position: absolute;
+      width: 100%;
+      height: 3px;
+      bottom: -5px;
+      left: 0;
+      background: var(--primary-color);
+      box-shadow: 0 0 10px var(--primary-color);
+      transform: scaleX(0);
+      transform-origin: bottom right;
+      transition: transform 0.5s ease-out;
+    }
+    
+    .footer-logo:hover::after {
+      transform: scaleX(1);
+      transform-origin: bottom left;
+    }
+    
+    /* List layout styles */
+    .layout-list .cards-container {
+      flex-direction: column;
+      align-items: center;
+    }
+    
+    .layout-list .card {
+      width: 80%;
+      max-width: 600px;
+      height: 200px;
+    }
+    
+    .layout-list .card-front {
+      flex-direction: row;
+      justify-content: flex-start;
+      padding: 20px 40px;
+    }
+    
+    .layout-list .card-icon {
+      margin-right: 30px;
+      margin-bottom: 0;
+    }
+    
+    /* Custom cursor */
+    .custom-cursor {
+      position: fixed;
+      width: 20px;
+      height: 20px;
+      border-radius: 50%;
+      background: var(--primary-color);
+      opacity: 0.7;
+      mix-blend-mode: screen;
+      pointer-events: none;
+      transform: translate(-50%, -50%);
+      z-index: 9999;
+      transition: transform 0.1s ease;
+    }
+    
+    .cursor-ring {
+      position: fixed;
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      border: 1px solid var(--primary-color);
+      opacity: 0.6;
+      pointer-events: none;
+      transform: translate(-50%, -50%);
+      z-index: 9998;
+      transition: width 0.3s, height 0.3s, opacity 0.3s;
+    }
+    
+    /* Responsive styles */
+    @media (max-width: 768px) {
+      h1 {
+        font-size: 2.5rem;
+      }
+      
+      .avatar-container {
+        width: 120px;
+        height: 120px;
+      }
+      
+      .card {
+        width: 100%;
+        max-width: 300px;
+        margin: 0 auto 30px;
+      }
+      
+      .layout-list .card {
+        width: 90%;
+        height: auto;
+      }
+      
+      .layout-list .card-front {
+        flex-direction: column;
+        padding: 30px;
+      }
+      
+      .layout-list .card-icon {
+        margin-right: 0;
+        margin-bottom: 20px;
+      }
+      
+      .cards-container {
+        gap: 50px;
+      }
+    }
+    
+    /* Glitch effect for text elements */
+    .glitch {
+      position: relative;
+    }
+    
+    .glitch::before,
+    .glitch::after {
+      content: attr(data-text);
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+    }
+    
+    .glitch::before {
+      left: 2px;
+      text-shadow: -1px 0 #ff00de;
+      background: transparent;
+      clip: rect(0, 900px, 0, 0);
+      animation: glitch-anim-1 2s infinite linear alternate-reverse;
+    }
+    
+    .glitch::after {
+      left: -2px;
+      text-shadow: 2px 0 #00fff9;
+      background: transparent;
+      clip: rect(0, 900px, 0, 0);
+      animation: glitch-anim-2 3s infinite linear alternate-reverse;
+    }
+    
+    @keyframes glitch-anim-1 {
+      0% {
+        clip: rect(64px, 9999px, 98px, 0);
+      }
+      20% {
+        clip: rect(30px, 9999px, 16px, 0);
+      }
+      40% {
+        clip: rect(43px, 9999px, 93px, 0);
+      }
+      60% {
+        clip: rect(59px, 9999px, 43px, 0);
+      }
+      80% {
+        clip: rect(29px, 9999px, 70px, 0);
+      }
+      100% {
+        clip: rect(87px, 9999px, 29px, 0);
+      }
+    }
+    
+    @keyframes glitch-anim-2 {
+      0% {
+        clip: rect(16px, 9999px, 74px, 0);
+      }
+      20% {
+        clip: rect(92px, 9999px, 62px, 0);
+      }
+      40% {
+        clip: rect(45px, 9999px, 27px, 0);
+      }
+      60% {
+        clip: rect(54px, 9999px, 82px, 0);
+      }
+      80% {
+        clip: rect(38px, 9999px, 54px, 0);
+      }
+      100% {
+        clip: rect(70px, 9999px, 61px, 0);
+      }
+    }
+  </style>
+</head>
+<body>
+  <div id="particles-js"></div>
+  
+  <div class="controls">
+    <div class="control-panel">
+      <button onclick="toggleLayout('grid')">
+        <i class="fas fa-th"></i>
+      </button>
+      <button onclick="toggleLayout('list')">
+        <i class="fas fa-bars"></i>
+      </button>
+    </div>
+    <div class="control-panel color-picker">
+      <label for="theme-color">Theme</label>
+      <input type="color" id="theme-color" value="#00ffea" onchange="updateColor(this.value)">
+    </div>
+  </div>
+  
+  <header class="header">
+    <div class="container">
+      <div class="avatar-container">
+        <img src="b4d58dd1816b469aaaf9c74b10081eba.webp" alt="Krishna" class="avatar">
+        <div class="avatar-ring"></div>
+      </div>
+      <h1 class="glitch" data-text="KRISHNA">KRISHNA</h1>
+      <p class="subtitle">🚀 BCA Student | Developer | Tech Enthusiast</p>
+      <div class="social-icons">
+        <a href="#" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
+        <a href="https://github.com/krishna3251" target="_blank" aria-label="GitHub"><i class="fab fa-github"></i></a>
+        <a href="https://discord.com/oauth2/authorize?client_id=1285240144982577203" target="_blank" aria-label="Discord Bot"><i class="fab fa-discord"></i></a>
+        <a href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+      </div>
+    </div>
+  </header>
+  
+  <section class="content-section" id="about">
+    <div class="container">
+      <h2 class="section-title">MY PASSIONS</h2>
+      <div class="cards-container" id="cards-container">
+        <!-- Gaming Card -->
+        <div class="card card-motion" style="animation-delay: 0s; transform-origin: center; position: relative; z-index: 10;" id="gaming-card">
+          <div class="card-inner">
+            <div class="card-front">
+              <div class="glow"></div>
+              <i class="fas fa-gamepad card-icon"></i>
+              <h3 class="card-title">Gaming</h3>
+            </div>
+            <div class="card-back">
+              <h3 class="card-title">Gaming</h3>
+              <p class="card-description">
+               I play games like Genshin Impact, Wuthering Waves, and many more. Gaming is not just a hobby for me; it's a way to connect with friends and explore new worlds.
+              </p>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Development Card -->
+        <div class="card card-motion" style="animation-delay: 0.5s; transform-origin: center; position: relative; z-index: 9;" id="dev-card">
+          <div class="card-inner">
+            <div class="card-front">
+              <div class="glow"></div>
+              <i class="fas fa-code card-icon"></i>
+              <h3 class="card-title">Development</h3>
+            </div>
+            <div class="card-back">
+              <h3 class="card-title">Development</h3>
+              <p class="card-description">
+                I build interactive web applications using modern tools and frameworks. I'm passionate about creating
+                intuitive user experiences and efficient backend solutions.
+              </p>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Community Card -->
+        <div class="card card-motion" style="animation-delay: 1s; transform-origin: center; position: relative; z-index: 8;" id="community-card">
+          <div class="card-inner">
+            <div class="card-front">
+              <div class="glow"></div>
+              <i class="fas fa-users card-icon"></i>
+              <h3 class="card-title">Community</h3>
+            </div>
+            <div class="card-back">
+              <h3 class="card-title">Community</h3>
+              <p class="card-description">
+              i am not a ytr just yt wathcer and i am not a gamer just a game wathcer and i am not a developer just a developer wathcer kuch bhi likh rha bc
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  
+  <section class="content-section" id="projects">
+    <div class="container">
+      <h2 class="section-title">RECENT PROJECTS</h2>
+      <div class="project-grid">
+        <!-- Project 1 -->
+        <div class="project-card">
+          <img src="krishna.jpg" alt="krishna" class="project-image">
+          <div class="project-info">
+            <h3 class="project-title">GITHUB</h3>
+            <p class="project-desc">Just a bot files and info</p>
+            <div class="tech-stack">
+              <span class="tech-tag">React</span>
+              <span class="tech-tag">SCSS</span>
+              <span class="tech-tag">JavaScript</span>
+            </div>
+            <a href="https://github.com/krishna3251" target="_blank" class="cyber-button">
+              <i class="fab fa-github" style="margin-right: 1px;"></i> View on GitHub
+            </a>
+          </div>
+        </div>
+        
+        <!-- Project 2 -->
+        <div class="project-card">
+          <img src="/908fa7f808bf37338dad865ba34964ae.png" alt="Project 2" class="project-image">
+          <div class="project-info">
+            <h3 class="project-title">Discord Bot</h3>
+            <p class="project-desc">A powerful Discord bot with moderation tools and fun interactions.</p>
+            <div class="tech-stack">
+              <span class="tech-tag">python</span>
+              <span class="tech-tag">discordpy</span>
+              
+            </div>
+            <a href="https://discord.com/oauth2/authorize?client_id=1285240144982577203" target="_blank" class="cyber-button">
+              <i class="fab fa-discord" style="margin-right: 11px;"></i> Add my bot 
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-logo">K</div>
+      <p class="copyright">© 2025 Krishna. All rights reserved.</p>
+    </div>
+  </footer>
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/particles.js/2.0.0/particles.min.js"></script>
+  <script>
+    // Initialize Particles.js
+    document.addEventListener('DOMContentLoaded', function() {
+      particlesJS("particles-js", {
+        particles: {
+          number: { 
+            value: 100,
+            density: { 
+              enable: true, 
+              value_area: 800 
+            } 
+          },
+          color: { 
+            value: getComputedStyle(document.documentElement).getPropertyValue('--primary-color').trim() 
+          },
+          shape: {
+            type: ["circle", "triangle", "edge"],
+            stroke: { 
+              width: 0, 
+              color: "#000000" 
+            },
+          },
+          opacity: {
+            value: 0.5,
+            random: true,
+            anim: { 
+              enable: true, 
+              speed: 1, 
+              opacity_min: 0.1, 
+              sync: false 
+            }
+          },
+          size: {
+            value: 4,
+            random: true,
+            anim: { 
+              enable: true, 
+              speed: 2, 
+              size_min: 0.1, 
+              sync: false 
+            }
+          },
+          line_linked: {
+            enable: true,
+            distance: 170,
+            color: getComputedStyle(document.documentElement).getPropertyValue('--primary-color').trim(),
+            opacity: 0.4,
+            width: 1
+          },
+          move: {
+            enable: true,
+            speed: 2,
+            direction: "none",
+            random: true,
+            straight: false,
+            out_mode: "out",
+            bounce: false,
+            attract: { 
+              enable: true, 
+              rotateX: 600, 
+              rotateY: 1200 
+            }
+          }
+        },
+        interactivity: {
+          detect_on: "canvas",
+          events: {
+            onhover: {
+              enable: true,
+              mode: "repulse"
+            },
+            onclick: {
+              enable: true,
+              mode: "push"
+            },
+            resize: true
+          },
+          modes: {
+            grab: {
+              distance: 180,
+              line_linked: {
+                opacity: 1
+              }
+            },
+            bubble: {
+              distance: 400,
+              size: 40,
+              duration: 2,
+              opacity: 8,
+              speed: 3
+            },
+            repulse: {
+              distance: 100,
+              duration: 0.4
+            },
+            push: {
+              particles_nb: 6
+            },
+            remove: {
+              particles_nb: 2
+            }
+          }
+        },
+        retina_detect: true
+      });
+    });
+
+    // Toggle layout between grid and list
+    function toggleLayout(type) {
+      const container = document.getElementById('cards-container');
+      
+      if (type === 'list') {
+        container.closest('.content-section').classList.add('layout-list');
+      } else {
+        container.closest('.content-section').classList.remove('layout-list');
+      }
+      
+      // Add animation to cards for smooth transition
+      const cards = document.querySelectorAll('.card');
+      cards.forEach(card => {
+        card.style.animation = 'none';
+        setTimeout(() => {
+          card.style.animation = '';
+        }, 10);
+      });
+    }
+
+    // Update theme color
+    function updateColor(color) {
+      document.documentElement.style.setProperty('--primary-color', color);
+      document.documentElement.style.setProperty('--primary-glow', color + "99");
+      
+      // Update particles color
+      if (window.pJSDom && window.pJSDom[0] && window.pJSDom[0].pJS) {
+        window.pJSDom[0].pJS.particles.color.value = color;
+        window.pJSDom[0].pJS.particles.line_linked.color = color;
+        window.pJSDom[0].pJS.fn.particlesRefresh();
+      }
+    }
+    
+  // Replace the existing mousemove event handler with this improved version
+document.addEventListener('mousemove', function(e) {
+  const cards = document.querySelectorAll('.card');
+  
+  cards.forEach(card => {
+    const rect = card.getBoundingClientRect();
+    const centerX = rect.left + rect.width / 2;
+    const centerY = rect.top + rect.height / 2;
+    
+    // Calculate distance from mouse to card center
+    const distX = e.clientX - centerX;
+    const distY = e.clientY - centerY;
+    
+    // Only apply effect if mouse is within reasonable distance
+    const maxDist = Math.max(rect.width, rect.height) * 1.5;
+    const dist = Math.sqrt(distX * distX + distY * distY);
+    
+    if (dist < maxDist) {
+      // Calculate rotation based on mouse position (subtle effect)
+      const rotateY = distX * 0.03; // horizontal tilt
+      const rotateX = -distY * 0.03; // vertical tilt
+      
+      // Apply 3D rotation
+      card.style.transform = `perspective(1000px) rotateY(${rotateY}deg) rotateX(${rotateX}deg)`;
+      
+      // Position the glow element
+      const glow = card.querySelector('.card-front .glow');
+      if (glow) {
+        const cardFront = card.querySelector('.card-front');
+        const frontRect = cardFront.getBoundingClientRect();
+        
+        // Calculate position within the card front
+        const mouseX = e.clientX - frontRect.left;
+        const mouseY = e.clientY - frontRect.top;
+        
+        if (mouseX > 0 && mouseX < frontRect.width && mouseY > 0 && mouseY < frontRect.height) {
+          glow.style.left = `${mouseX - 75}px`;
+          glow.style.top = `${mouseY - 75}px`;
+          glow.style.opacity = '0.3';
+        } else {
+          // Center the glow if mouse is outside
+          glow.style.left = '50%';
+          glow.style.top = '50%';
+          glow.style.transform = 'translate(-50%, -50%)';
+        }
+      }
+    }
+  });
+});
+
+// Reset transformations when mouse leaves
+document.addEventListener('mouseleave', function(e) {
+  const cards = document.querySelectorAll('.card');
+  cards.forEach(card => {
+    card.style.transform = '';
+  });
+});
+
+// Helper function to add 3D tilt effect when cards come into view
+function addScrollEffect() {
+  const cards = document.querySelectorAll('.card');
+  
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('card-in-view');
+        setTimeout(() => {
+          entry.target.style.transform = 'perspective(1000px) translateZ(0)';
+        }, 100);
+      } else {
+        entry.target.classList.remove('card-in-view');
+      }
+    });
+  }, { threshold: 0.2 });
+  
+  cards.forEach(card => {
+    observer.observe(card);
+  });
+}
+
+// Initialize tilt effect
+document.addEventListener('DOMContentLoaded', function() {
+  // Add glow elements to all card fronts if they don't exist
+  const cardFronts = document.querySelectorAll('.card-front');
+  cardFronts.forEach(front => {
+    if (!front.querySelector('.glow')) {
+      const glow = document.createElement('div');
+      glow.className = 'glow';
+      front.appendChild(glow);
+    }
+  });
+  
+  // Initialize scroll effect
+  addScrollEffect();
+  
+  // Initialize particles (keep your existing code)
+  particlesJS("particles-js", {
+    particles: {
+      number: { 
+        value: 100,
+        density: { 
+          enable: true, 
+          value_area: 800 
+        } 
+      },
+      color: { 
+        value: getComputedStyle(document.documentElement).getPropertyValue('--primary-color').trim() 
+      },
+      shape: {
+        type: ["circle", "triangle", "edge"],
+        stroke: { 
+          width: 0, 
+          color: "#000000" 
+        },
+      },
+      opacity: {
+        value: 0.5,
+        random: true,
+        anim: { 
+          enable: true, 
+          speed: 1, 
+          opacity_min: 0.1, 
+          sync: false 
+        }
+      },
+      size: {
+        value: 4,
+        random: true,
+        anim: { 
+          enable: true, 
+          speed: 2, 
+          size_min: 0.1, 
+          sync: false 
+        }
+      },
+      line_linked: {
+        enable: true,
+        distance: 170,
+        color: getComputedStyle(document.documentElement).getPropertyValue('--primary-color').trim(),
+        opacity: 0.4,
+        width: 1
+      },
+      move: {
+        enable: true,
+        speed: 2,
+        direction: "none",
+        random: true,
+        straight: false,
+        out_mode: "out",
+        bounce: false,
+        attract: { 
+          enable: true, 
+          rotateX: 600, 
+          rotateY: 1200 
+        }
+      }
+    },
+    interactivity: {
+      detect_on: "canvas",
+      events: {
+        onhover: {
+          enable: true,
+          mode: "repulse"
+        },
+        onclick: {
+          enable: true,
+          mode: "push"
+        },
+        resize: true
+      },
+      modes: {
+        grab: {
+          distance: 180,
+          line_linked: {
+            opacity: 1
+          }
+        },
+        bubble: {
+          distance: 400,
+          size: 40,
+          duration: 2,
+          opacity: 8,
+          speed: 3
+        },
+        repulse: {
+          distance: 100,
+          duration: 0.4
+        },
+        push: {
+          particles_nb: 6
+        },
+        remove: {
+          particles_nb: 2
+        }
+      }
+    },
+    retina_detect: true
+  });
+});
+
+// Keep your existing functions for toggling layout and updating color
+// Toggle layout between grid and list
+function toggleLayout(type) {
+  const container = document.getElementById('cards-container');
+  
+  if (type === 'list') {
+    container.closest('.content-section').classList.add('layout-list');
+  } else {
+    container.closest('.content-section').classList.remove('layout-list');
+  }
+  
+  // Reset all card transformations
+  const cards = document.querySelectorAll('.card');
+  cards.forEach(card => {
+    card.style.transform = '';
+  });
+}
+
+// Update theme color
+function updateColor(color) {
+  document.documentElement.style.setProperty('--primary-color', color);
+  document.documentElement.style.setProperty('--primary-glow', color + "99");
+  
+  // Update particles color
+  if (window.pJSDom && window.pJSDom[0] && window.pJSDom[0].pJS) {
+    window.pJSDom[0].pJS.particles.color.value = color;
+    window.pJSDom[0].pJS.particles.line_linked.color = color;
+    window.pJSDom[0].pJS.fn.particlesRefresh();
+  }
+}
+    // Prevent cards from changing positions randomly
+    document.addEventListener('DOMContentLoaded', function() {
+      // Fix positions of cards
+      const gamingCard = document.getElementById('gaming-card');
+      const devCard = document.getElementById('dev-card');
+      const communityCard = document.getElementById('community-card');
+      
+      // Ensure consistent positions
+      if (gamingCard && devCard && communityCard) {
+        const parent = gamingCard.parentElement;
+        parent.innerHTML = '';
+        parent.appendChild(gamingCard);
+        parent.appendChild(devCard);
+        parent.appendChild(communityCard);
+      }
+    });
+  </script>
+</body>
+</html>

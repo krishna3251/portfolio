@@ -1,0 +1,389 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Krishna | Futuristic Portfolio</title>
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Rajdhani:wght@300;500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="stylesheet" href="style.css" />
+ 
+</head>
+<body>
+  <div id="particles-js"> </div>
+  
+  <!-- Settings overlay for backdrop -->
+
+        <div class="controls">
+            <div class="control-panel">
+                <input type="color" id="color-picker" value="#00ffea" onchange="updateColor(this.value)">
+                     
+            </div> 
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Resize Handle -->
+      <div class="resize-handle" id="resize-handle"></div>
+    </div>
+  </div>
+
+  <header class="header">
+    <div class="container">
+      <div class="avatar-container">
+        <img src="b4d58dd1816b469aaaf9c74b10081eba.webp" alt="Krishna" class="avatar">
+        <div class="avatar-ring"></div>
+      </div>
+      <h1 class="glitch" data-text="KRISHNA">KRISHNA</h1>
+      <p class="subtitle">BCA Student | Developer | Tech Enthusiast</p>
+      <div class="social-icons">
+        <a href="https://youtube.com/@onizukanice?si=UR9EjTUHb30InnE4" target="_blank" aria-label="YouTube">
+          <i class="fab fa-youtube"></i>
+        </a>
+        <a href="https://github.com/krishna3251" target="_blank" aria-label="GitHub">
+          <i class="fab fa-github"></i>
+        </a>
+        <a href="https://discord.gg/HeSxrWaEdz" target="_blank" aria-label="Discord server">
+          <i class="fab fa-discord"></i>
+        </a>
+        <a href="https://www.instagram.com/krishna_sanskari69?igsh=dmlmeTdsMG5oYmll" target="_blank" aria-label="instagram">
+          <i class="fab fa-instagram"></i>
+        </a>
+      </div>
+      <div style="margin-top: 20px;">
+        <button class="sparkle-btn">
+          Hover Me +
+          <span class="stars">
+            <span class="star"></span>
+            <span class="star"></span>
+            <span class="star"></span>
+          </span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <section class="content-section" id="about">
+    <div class="container">
+      <h2 class="section-title">MY PASSIONS</h2>
+      <div class="cards-container" id="cards-container">
+        <!-- Gaming Card -->
+        <div class="card card-motion" style="animation-delay: 0s; transform-origin: center; position: relative; z-index: 10;" id="gaming-card">
+          <div class="card-inner">
+            <div class="card-front">
+              <div class="glow"></div>
+              <i class="fas fa-gamepad card-icon"></i>
+              <h3 class="card-title">Gaming</h3>
+            </div>
+            <div class="card-back">
+              <h3 class="card-title">Gaming</h3>
+              <p class="card-description">
+                I play games like Genshin Impact, Wuthering Waves, and many more. Gaming is not just a hobby for me; it's a way to connect with friends and explore new worlds.
+              </p>
+              <img src="xiao.jpeg" alt="gaming-card" class="hover-image">
+            </div>
+          </div>
+        </div>
+
+        <!-- Development Card -->
+        <div class="card card-motion" style="animation-delay: 0.5s; transform-origin: center; position: relative; z-index: 10;" id="dev-card">
+          <div class="card-inner">
+            <div class="card-front">
+              <div class="glow"></div>
+              <i class="fas fa-code card-icon"></i>
+              <h3 class="card-title">Development</h3>
+            </div>
+            <div class="card-back">
+              <h3 class="card-title">Development</h3>
+              <p class="card-description">
+                I build interactive web applications using modern tools and frameworks. I'm passionate about creating
+                intuitive user experiences and efficient backend solutions.
+              </p>
+              <img src="futurestic.jpg" alt="development-card" class="hover-image">
+            </div>
+          </div>
+        </div>
+
+        <!-- Community Card -->
+        <div class="card card-motion" style="animation-delay: 1s; transform-origin: center; position: relative; z-index: 8;" id="community-card">
+          <div class="card-inner">
+            <div class="card-front">
+              <div class="glow"></div>
+              <i class="fas fa-users card-icon"></i>
+              <h3 class="card-title">Community</h3>
+            </div>
+            <div class="card-back">
+              <h3 class="card-title">Community</h3>
+              <p class="card-description">
+                I am not a YouTuber just a YouTube watcher and I am not a gamer just a game watcher and I am not a developer just a developer watcher.
+              </p>
+              <img src="dc.svg" alt="community-card" class="hover-image">
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="content-section" id="projects">
+    <div class="container">
+      <h2 class="section-title">RECENT PROJECTS</h2>
+      <div class="project-grid">
+        <!-- Project 1 -->
+        <div class="project-card">
+          <img src="krishna.jpg" alt="krishna" class="project-image">
+          <div class="project-info">
+            <h3 class="project-title">GITHUB</h3>
+            <p class="project-desc">Just a bot files and info</p>
+            <div class="tech-stack">
+              <span class="tech-tag">only python so far</span>
+            </div>
+            <a href="https://github.com/krishna3251" target="_blank" class="cyber-button">
+              <i class="fab fa-github" style="margin-right: 5px;"></i> View on GitHub
+            </a>
+          </div>
+        </div>
+
+        <!-- Project 2 -->
+        <div class="project-card">
+          <img src="/908fa7f808bf37338dad865ba34964ae.png" alt="Project 2" class="project-image">
+          <div class="project-info">
+            <h3 class="project-title">Discord Bot</h3>
+            <p class="project-desc">A powerful Discord bot with moderation tools and fun interactions.</p>
+            <div class="tech-stack">
+              <span class="tech-tag">python</span>
+              <span class="tech-tag">discordpy</span>
+            </div>
+            <div>
+              <a href="https://discord.com/oauth2/authorize?client_id=1285240144982577203" target="_blank" class="cyber-button">
+                <i class="fab fa-discord" style="margin-right: 5px;"></i> Add my bot
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-logo">KRISHNA</div>
+      <p class="copyright">© 2025 Krishna. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/particles.js/2.0.0/particles.min.js"></script>
+  <script src="script.js"></script>
+  
+  <script>
+    // Enhanced Settings Panel with Drag and Resize functionality
+    class PortfolioSettings {
+      constructor() {
+        this.panel = document.getElementById('settings-panel');
+        this.overlay = document.getElementById('settings-overlay');
+        this.toggleBtn = document.getElementById('toggle-settings');
+        this.closeBtn = document.getElementById('close-settings');
+        this.dragHandle = document.getElementById('drag-handle');
+        this.resizeHandle = document.getElementById('resize-handle');
+        
+        this.isDragging = false;
+        this.isResizing = false;
+        this.dragOffset = { x: 0, y: 0 };
+        this.resizeStart = { x: 0, y: 0, width: 0, height: 0 };
+        
+        this.init();
+      }
+
+      init() {
+        // Settings panel toggle
+        this.toggleBtn.addEventListener('click', () => this.showPanel());
+        this.closeBtn.addEventListener('click', () => this.hidePanel());
+        this.overlay.addEventListener('click', () => this.hidePanel());
+
+        // Dragging functionality
+        this.dragHandle.addEventListener('mousedown', (e) => this.startDrag(e));
+        this.dragHandle.addEventListener('touchstart', (e) => this.startDrag(e), { passive: false });
+
+        // Resizing functionality
+        this.resizeHandle.addEventListener('mousedown', (e) => this.startResize(e));
+        this.resizeHandle.addEventListener('touchstart', (e) => this.startResize(e), { passive: false });
+        this.resizeHandle.addEventListener('touchmove', (e) => this.handleMove(e), { passive: false });
+        this.resizeHandle.addEventListener('mousemove', (e) => this.handleMove(e));
+
+        // Global mouse/touch events
+        document.addEventListener('mousemove', (e) => this.handleMove(e));
+        document.addEventListener('touchmove', (e) => this.handleMove(e), { passive: false });
+        document.addEventListener('mouseup', () => this.endInteraction());
+        document.addEventListener('touchend', () => this.endInteraction());
+
+        // Prevent default drag behavior
+        this.panel.addEventListener('dragstart', (e) => e.preventDefault());
+
+        // Initialize color picker
+        this.initColorPicker();
+      }
+
+      showPanel() {
+        this.panel.classList.add('active');
+        this.overlay.classList.add('active');
+        document.body.style.overflow = 'hidden';
+      }
+
+      hidePanel() {
+        this.panel.classList.remove('active');
+        this.overlay.classList.remove('active');
+        document.body.style.overflow = '';
+      }
+
+      startDrag(e) {
+        e.preventDefault();
+        this.isDragging = true;
+        
+        const clientX = e.clientX || e.touches[0].clientX;
+        const clientY = e.clientY || e.touches[0].clientY;
+        const rect = this.panel.getBoundingClientRect();
+        
+        this.dragOffset.x = clientX - rect.left;
+        this.dragOffset.y = clientY - rect.top;
+        
+        this.panel.classList.add('dragging');
+        document.body.classList.add('dragging');
+      }
+
+      startResize(e) {
+        e.preventDefault();
+        e.stopPropagation();
+        this.isResizing = true;
+        
+        const clientX = e.clientX || e.touches[0].clientX;
+        const clientY = e.clientY || e.touches[0].clientY;
+        const rect = this.panel.getBoundingClientRect();
+        
+        this.resizeStart.x = clientX;
+        this.resizeStart.y = clientY;
+        this.resizeStart.width = rect.width;
+        this.resizeStart.height = rect.height;
+        
+        this.panel.classList.add('resizing');
+        document.body.classList.add('resizing');
+      }
+
+      handleMove(e) {
+        if (!this.isDragging && !this.isResizing) return;
+        
+        e.preventDefault();
+        const clientX = e.clientX || e.touches[0].clientX;
+        const clientY = e.clientY || e.touches[0].clientY;
+
+        if (this.isDragging) {
+          const newX = clientX - this.dragOffset.x;
+          const newY = clientY - this.dragOffset.y;
+          
+          // Constrain to viewport
+          const maxX = window.innerWidth - this.panel.offsetWidth;
+          const maxY = window.innerHeight - this.panel.offsetHeight;
+          
+          const constrainedX = Math.max(0, Math.min(newX, maxX));
+          const constrainedY = Math.max(0, Math.min(newY, maxY));
+          
+          this.panel.style.left = constrainedX + 'px';
+          this.panel.style.top = constrainedY + 'px';
+          this.panel.style.right = 'auto';
+        }
+
+        if (this.isResizing) {
+          const deltaX = clientX - this.resizeStart.x;
+          const deltaY = clientY - this.resizeStart.y;
+          
+          const newWidth = Math.max(280, Math.min(600, this.resizeStart.width + deltaX));
+          const newHeight = Math.max(200, Math.min(window.innerHeight * 0.8, this.resizeStart.height + deltaY));
+          
+          this.panel.style.width = newWidth + 'px';
+          this.panel.style.height = newHeight + 'px';
+        }
+      }
+
+      endInteraction() {
+        if (this.isDragging) {
+          this.isDragging = false;
+          this.panel.classList.remove('dragging');
+          document.body.classList.remove('dragging');
+        }
+
+        if (this.isResizing) {
+          this.isResizing = false;
+          this.panel.classList.remove('resizing');
+          document.body.classList.remove('resizing');
+        }
+      }
+
+      initColorPicker() {
+        const colorPicker = document.getElementById('color-picker');
+        colorPicker.addEventListener('change', (e) => {
+          const color = e.target.value;
+          document.documentElement.style.setProperty('--primary-color', color);
+          const rgb = this.hexToRgb(color);
+          document.documentElement.style.setProperty('--primary-glow', `rgba(${rgb.r}, ${rgb.g}, ${rgb.b}, 0.3)`);
+        });
+      }
+
+      hexToRgb(hex) {
+        const result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
+        return result ? {
+          r: parseInt(result[1], 16),
+          g: parseInt(result[2], 16),
+          b: parseInt(result[3], 16)
+        } : { r: 0, g: 255, b: 234 };
+      }
+    }
+
+    // Initialize the enhanced settings panel
+    document.addEventListener('DOMContentLoaded', () => {
+      new PortfolioSettings();
+    });
+
+    // Enhanced layout toggle function
+    function toggleLayout(layout) {
+      const buttons = document.querySelectorAll('.layout-btn');
+      buttons.forEach(btn => btn.classList.remove('active'));
+      event.target.closest('.layout-btn').classList.add('active');
+      
+      // Add your layout switching logic here
+      console.log(`Switched to ${layout} layout`);
+    }
+
+    // Enhanced theme toggle function
+    function toggleTheme() {
+      const body = document.body;
+      const icon = document.querySelector('#theme-toggle i');
+      
+      body.classList.toggle('light-theme');
+      
+      if (body.classList.contains('light-theme')) {
+        icon.classList.remove('fa-moon');
+        icon.classList.add('fa-sun');
+      } else {
+        icon.classList.remove('fa-sun');
+        icon.classList.add('fa-moon');
+      }
+    }
+
+    // Enhanced color update function
+    function updateColor(color) {
+      document.documentElement.style.setProperty('--primary-color', color);
+      const rgb = hexToRgb(color);
+      document.documentElement.style.setProperty('--primary-glow', `rgba(${rgb.r}, ${rgb.g}, ${rgb.b}, 0.3)`);
+    }
+
+    function hexToRgb(hex) {
+      const result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
+      return result ? {
+        r: parseInt(result[1], 16),
+        g: parseInt(result[2], 16),
+        b: parseInt(result[3], 16)
+      } : { r: 0, g: 255, b: 234 };
+    }
+  </script>
+</body>
+</html>
