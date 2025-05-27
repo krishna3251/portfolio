@@ -24,41 +24,6 @@ document.addEventListener('DOMContentLoaded', function() {
   initMusicWidget();
 });
 function initParticles() {
-  // Audio context for music reactivity
-  let audioContext, analyser, dataArray, audioSource;
-  let isAudioInitialized = false;
-  
-
-  
-  // Initialize audio context (no microphone, only existing audio elements)
-  function initAudio() {
-    if (isAudioInitialized) return;
-    
-    try {
-      audioContext = new (window.AudioContext || window.webkitAudioContext)();
-      analyser = audioContext.createAnalyser();
-      analyser.fftSize = 256;
-      dataArray = new Uint8Array(analyser.frequencyBinCount);
-      
-      // Only connect to existing audio/video elements on the page
-      const audioElements = document.querySelectorAll('audio, video');
-      audioElements.forEach(element => {
-        if (!element.crossOrigin) element.crossOrigin = 'anonymous';
-        try {
-          const source = audioContext.createMediaElementSource(element);
-          source.connect(analyser);
-          analyser.connect(audioContext.destination);
-          isAudioInitialized = true;
-          console.log('Connected to audio element for music reactivity');
-        } catch(e) {
-          console.log('Could not connect to audio element');
-        }
-      });
-    } catch(e) {
-      console.log('Audio context not supported');
-    }
-  }
-  
   // Get current theme color dynamically
   function getCurrentThemeColor() {
     return getComputedStyle(document.documentElement).getPropertyValue('--primary-color').trim() || '#ffffff';
@@ -67,7 +32,7 @@ function initParticles() {
   particlesJS("particles-js", {
     particles: {
       number: { 
-        value: 100,
+        value: 80, // Reduced for better performance
         density: { 
           enable: true, 
           value_area: 800 
@@ -91,7 +56,7 @@ function initParticles() {
         random: true,
         anim: { 
           enable: true, 
-          speed: 1, 
+          speed: 0.8, // Slightly slower for smoothness
           opacity_min: 0.2, 
           sync: false 
         }
@@ -101,7 +66,7 @@ function initParticles() {
         random: true,
         anim: { 
           enable: true, 
-          speed: 2, 
+          speed: 1.5, // Slower size animation
           size_min: 0.5, 
           sync: false 
         }
@@ -151,7 +116,7 @@ function initParticles() {
     retina_detect: true
   });
 
-  // Enhanced particle system with gentle music reactivity
+  // Enhanced particle system with smooth animations
   setTimeout(function() {
     let canvas = document.querySelector('#particles-js canvas');
     let particlesContainer = document.querySelector('#particles-js');
@@ -164,30 +129,21 @@ function initParticles() {
     let windowCenterX = window.innerWidth / 2;
     let windowCenterY = window.innerHeight / 2;
     
-    // Gentle 3D rotation variables
+    // Smooth 3D rotation variables
     let currentRotateX = 0;
     let currentRotateY = 0;
     let targetRotateX = 0;
     let targetRotateY = 0;
     
-    // Music reactivity variables
-    let audioAmplitude = 0;
-    let bassLevel = 0;
-    let trebleLevel = 0;
-    
     // Add gentle depth to particles
     particles.forEach(particle => {
-      particle.z = Math.random() * 100 - 50; // -50 to 50 (smaller range)
+      particle.z = Math.random() * 100 - 50;
       particle.originalSize = particle.radius;
       particle.originalOpacity = particle.opacity;
       particle.originalX = particle.x;
       particle.originalY = particle.y;
-      particle.dancePhase = Math.random() * Math.PI * 2; // For gentle dancing
+      particle.dancePhase = Math.random() * Math.PI * 2;
     });
-    
-    // Initialize audio on first user interaction
-    document.addEventListener('click', initAudio, { once: true });
-    document.addEventListener('keydown', initAudio, { once: true });
     
     // Theme color watcher
     function updateParticleColors() {
@@ -213,7 +169,8 @@ function initParticles() {
     });
     observer.observe(document.documentElement, { attributes: true });
     observer.observe(document.body, { attributes: true }); 
-    // Mouse tracking
+    
+    // Smooth mouse tracking
     document.addEventListener('mousemove', function(e) {
       mouseX = e.clientX;
       mouseY = e.clientY;
@@ -229,57 +186,31 @@ function initParticles() {
       let mouseXPercent = (mouseX - windowCenterX) / windowCenterX;
       let mouseYPercent = (mouseY - windowCenterY) / windowCenterY;
       
-      targetRotateY = mouseXPercent * 5; // Much gentler
-      targetRotateX = -mouseYPercent * 5;
+      targetRotateY = mouseXPercent * 3; // Very gentle
+      targetRotateX = -mouseYPercent * 3;
     });
     
-    // Gentle 3D animation
+    // Smooth 3D animation
     function animate3DCamera() {
-      // Get audio data if available
-      if (isAudioInitialized && analyser) {
-        analyser.getByteFrequencyData(dataArray);
-        
-        let sum = 0;
-        let bassSum = 0;
-        let trebleSum = 0;
-        
-        for (let i = 0; i < dataArray.length; i++) {
-          sum += dataArray[i];
-          if (i < dataArray.length * 0.3) bassSum += dataArray[i];
-          if (i > dataArray.length * 0.7) trebleSum += dataArray[i];
-        }
-        
-        audioAmplitude = sum / dataArray.length / 255;
-        bassLevel = bassSum / (dataArray.length * 0.3) / 255;
-        trebleLevel = trebleSum / (dataArray.length * 0.3) / 255;
-      }
+      // Very smooth interpolation
+      currentRotateX += (targetRotateX - currentRotateX) * 0.02;
+      currentRotateY += (targetRotateY - currentRotateY) * 0.02;
       
-      // Smooth interpolation
-      currentRotateX += (targetRotateX - currentRotateX) * 0.05;
-      currentRotateY += (targetRotateY - currentRotateY) * 0.05;
-      
-      // Gentle music-reactive rotation
-      let musicRotateZ = Math.sin(Date.now() * 0.001) * bassLevel * 3;
-      
-      // Apply gentle transform
-      let scale = 1 + (audioAmplitude * 0.05);
-      
+      // Apply smooth transform
       particlesContainer.style.transform = `
         perspective(1000px) 
         rotateX(${currentRotateX}deg) 
         rotateY(${currentRotateY}deg)
-        rotateZ(${musicRotateZ}deg)
-        scale(${scale})
       `;
       
       requestAnimationFrame(animate3DCamera);
     }
     
-    // Gentle particle dancing animation
+    // Smooth particle animation
     function animateParticles() {
       if (!particles || particles.length === 0) return;
       
-      let time = Date.now() * 0.001;
+      let time = Date.now() * 0.0005; // Slower time for smoother movement
       
       particles.forEach((particle, index) => {
         // Keep particles within screen bounds
@@ -290,32 +221,14 @@ function initParticles() {
           particle.vy *= -0.8;
         }
         
-        // Gentle music dancing
-        if (isAudioInitialized && audioAmplitude > 0.1) {
-          // Gentle size pulsing with bass
-          particle.radius = particle.originalSize * (1 + bassLevel * 0.5);
-          
-          // Gentle opacity variation with treble
-          particle.opacity = particle.originalOpacity * (0.7 + trebleLevel * 0.3);
-          
-          // Gentle dancing motion
-          let danceX = Math.sin(time * 2 + particle.dancePhase) * bassLevel * 10;
-          let danceY = Math.cos(time * 1.5 + particle.dancePhase) * trebleLevel * 8;
-          
-          particle.x += danceX * 0.1;
-          particle.y += danceY * 0.1;
-          
-          // Gentle speed variation
-          let speedMultiplier = 1 + audioAmplitude * 0.5;
-          particle.vx *= speedMultiplier * 0.98; // Damping
-          particle.vy *= speedMultiplier * 0.98;
-        } else {
-          // Normal gentle movement
-          particle.radius = particle.originalSize;
-          particle.opacity = particle.originalOpacity;
-        }
+        // Gentle ambient dancing
+        let gentleDanceX = Math.sin(time * 2 + particle.dancePhase) * 0.5;
+        let gentleDanceY = Math.cos(time * 1.5 + particle.dancePhase) * 0.3;
         
-        // Mouse attraction (gentler)
+        particle.x += gentleDanceX * 0.1;
+        particle.y += gentleDanceY * 0.1;
+        
+        // Mouse attraction (smooth)
         let canvasRect = canvas.getBoundingClientRect();
         let canvasMouseX = mouseX - canvasRect.left;
         let canvasMouseY = mouseY - canvasRect.top;
@@ -334,20 +247,20 @@ function initParticles() {
           
           if (distance < 200 && distance > 0) {
             let force = (200 - distance) / 200;
-            let attraction = 0.005 * force; // Much gentler
+            let attraction = 0.003 * force; // Very gentle
             
             particle.vx += dx * attraction;
             particle.vy += dy * attraction;
             
-            // Gentle damping
-            particle.vx *= 0.95;
-            particle.vy *= 0.95;
+            // Smooth damping
+            particle.vx *= 0.98;
+            particle.vy *= 0.98;
             
             // Speed limiting
             let speed = Math.sqrt(particle.vx * particle.vx + particle.vy * particle.vy);
-            if (speed > 2) { // Lower speed limit
-              particle.vx = (particle.vx / speed) * 2;
-              particle.vy = (particle.vy / speed) * 2;
+            if (speed > 1.5) {
+              particle.vx = (particle.vx / speed) * 1.5;
+              particle.vy = (particle.vy / speed) * 1.5;
             }
           }
         }
@@ -360,7 +273,7 @@ function initParticles() {
     animate3DCamera();
     animateParticles();
     
-    // Click interactions
+    // Smooth click interactions
     document.addEventListener('click', function(e) {
       let canvasRect = canvas.getBoundingClientRect();
       let clickX = e.clientX - canvasRect.left;
@@ -394,9 +307,8 @@ function initParticles() {
       switch(e.key) {
         case ' ':
           e.preventDefault();
-          // Gentle burst
-          let burstSize = isAudioInitialized ? Math.floor(8 + audioAmplitude * 12) : 8;
-          for(let i = 0; i < burstSize; i++) {
+          // Smooth burst
+          for(let i = 0; i < 8; i++) {
             setTimeout(() => {
               window.pJSDom[0].pJS.interactivity.mouse.click_pos_x = Math.random() * canvas.width;
               window.pJSDom[0].pJS.interactivity.mouse.click_pos_y = Math.random() * canvas.height;
@@ -409,7 +321,7 @@ function initParticles() {
                 newParticle.originalOpacity = newParticle.opacity;
                 newParticle.dancePhase = Math.random() * Math.PI * 2;
               }
-            }, i * 100);
+            }, i * 80);
           }
           break;
         case 'r':
@@ -428,10 +340,162 @@ function initParticles() {
           break;
       }
     });
-    
-    
-  }, 500);
-  
+
+    // Smooth Mouse Electricity Effect
+    function addMouseElectricity() {
+      const canvas = document.querySelector('#particles-js canvas');
+      if (!canvas) return;
+      
+      const electricCanvas = document.createElement('canvas');
+      const ctx = electricCanvas.getContext('2d');
+      
+      electricCanvas.style.position = 'absolute';
+      electricCanvas.style.top = '0';
+      electricCanvas.style.left = '0';
+      electricCanvas.style.width = '100%';
+      electricCanvas.style.height = '100%';
+      electricCanvas.style.pointerEvents = 'none';
+      electricCanvas.style.zIndex = '1';
+      
+      canvas.parentNode.appendChild(electricCanvas);
+      
+      let mouseX = 0, mouseY = 0;
+      let lightningBolts = [];
+      let mouseActive = false;
+      let smoothMouseX = 0, smoothMouseY = 0;
+      
+      function resizeCanvas() {
+        electricCanvas.width = canvas.width;
+        electricCanvas.height = canvas.height;
+      }
+      
+      class LightningBolt {
+        constructor(startX, startY, endX, endY) {
+          this.points = this.generateBolt(startX, startY, endX, endY);
+          this.life = 0;
+          this.maxLife = 6; // Consistent life for smoothness
+          this.width = 0.6; // Consistent width
+          this.opacity = 0.7;
+        }
+        
+        generateBolt(x1, y1, x2, y2) {
+          const points = [{x: x1, y: y1}];
+          const distance = Math.sqrt((x2-x1)**2 + (y2-y1)**2);
+          const segments = Math.floor(distance / 40); // Fewer segments for smoothness
+          
+          for(let i = 1; i < segments; i++) {
+            const progress = i / segments;
+            // Minimal randomness for smooth lines
+            const x = x1 + (x2 - x1) * progress + (Math.random() - 0.5) * 2;
+            const y = y1 + (y2 - y1) * progress + (Math.random() - 0.5) * 2;
+            points.push({x, y});
+          }
+          points.push({x: x2, y: y2});
+          return points;
+        }
+        
+        update() {
+          this.life++;
+          return this.life < this.maxLife;
+        }
+        
+        draw() {
+          const alpha = (1 - (this.life / this.maxLife)) * this.opacity;
+          ctx.save();
+          ctx.globalAlpha = alpha;
+          ctx.strokeStyle = '#4dd0e1';
+          ctx.lineWidth = this.width;
+          
+          // Minimal glow
+          ctx.shadowBlur = 1;
+          ctx.shadowColor = '#4dd0e1';
+          
+          ctx.beginPath();
+          ctx.moveTo(this.points[0].x, this.points[0].y);
+          for(let i = 1; i < this.points.length; i++) {
+            ctx.lineTo(this.points[i].x, this.points[i].y);
+          }
+          ctx.stroke();
+          ctx.restore();
+        }
+      }
+      
+      function getNearbyParticles(x, y, radius) {
+        if (!window.pJSDom || !window.pJSDom[0]) return [];
+        const particles = window.pJSDom[0].pJS.particles.array;
+        return particles.filter(p => {
+          const dist = Math.sqrt((p.x - x)**2 + (p.y - y)**2);
+          return dist < radius;
+        });
+      }
+      
+      document.addEventListener('mousemove', (e) => {
+        const rect = canvas.getBoundingClientRect();
+        mouseX = e.clientX - rect.left;
+        mouseY = e.clientY - rect.top;
+        mouseActive = true;
+        
+        // Very smooth mouse movement
+        smoothMouseX += (mouseX - smoothMouseX) * 0.1;
+        smoothMouseY += (mouseY - smoothMouseY) * 0.1;
+        
+        // Create lightning less frequently for better performance
+        if(Math.random() < 0.1) {
+          const nearby = getNearbyParticles(smoothMouseX, smoothMouseY, 80);
+          if(nearby.length > 0) {
+            const target = nearby[Math.floor(Math.random() * nearby.length)];
+            lightningBolts.push(new LightningBolt(smoothMouseX, smoothMouseY, target.x, target.y));
+          }
+        }
+      });
+      
+      document.addEventListener('mouseleave', () => {
+        mouseActive = false;
+      });
+      
+      function animate() {
+        ctx.clearRect(0, 0, electricCanvas.width, electricCanvas.height);
+        
+        // Update and draw lightning bolts
+        lightningBolts = lightningBolts.filter(bolt => {
+          bolt.draw();
+          return bolt.update();
+        });
+        
+        // Smooth mouse glow
+        if(mouseActive) {
+          const nearby = getNearbyParticles(smoothMouseX, smoothMouseY, 60);
+          if(nearby.length > 0) {
+            ctx.save();
+            ctx.globalAlpha = 0.1;
+            const gradient = ctx.createRadialGradient(
+              smoothMouseX, smoothMouseY, 0, 
+              smoothMouseX, smoothMouseY, 10
+            );
+            gradient.addColorStop(0, '#4dd0e1');
+            gradient.addColorStop(1, 'transparent');
+            ctx.fillStyle = gradient;
+            ctx.fillRect(smoothMouseX - 10, smoothMouseY - 10, 20, 20);
+            ctx.restore();
+          }
+        }
+        
+        requestAnimationFrame(animate);
+      }
+      
+      resizeCanvas();
+      window.addEventListener('resize', resizeCanvas);
+      animate();
+    }
+
+    // Initialize electricity effect
+    setTimeout(addMouseElectricity, 300);
+
+    // Reset on mouse leave
+    document.addEventListener('mouseleave', function() {
+      targetRotateX = targetRotateY = 0;
+    });
+  }, 300);
 }
   
 /**
@@ -694,7 +758,22 @@ function initAudioEffects() {
   bgMusicInstance.volume = 0.54;
   document.body.appendChild(bgMusicInstance);
 
- 
+  // Add event listeners for audio state changes
+  bgMusicInstance.addEventListener('ended', () => {
+    isPlaying = false;
+    updateButtonState();
+  });
+
+  bgMusicInstance.addEventListener('pause', () => {
+    isPlaying = false;
+    updateButtonState();
+  });
+  
+  bgMusicInstance.addEventListener('play', () => {
+    isPlaying = true;
+    updateButtonState();
+
+  });
 
   // INIT CUSTOM SVG BUTTON
   }
@@ -2435,171 +2514,4 @@ document.addEventListener('DOMContentLoaded', function() {
   updateButtonState();
 }
     
-  const canvas = document.getElementById('canvas');
-        const ctx = canvas.getContext('2d');
-        const colorPicker = document.getElementById('color-picker');
-        
-        // Set canvas size
-        canvas.width = window.innerWidth;
-        canvas.height = window.innerHeight;
-        
-        // Particle array
-        let particles = [];
-        let currentColor = '#00ffea';
-        let mouseDown = false;
-        let mouseX = 0;
-        let mouseY = 0;
-        
-        // Particle class
-        class Particle {
-            constructor(x, y, color) {
-                this.x = x;
-                this.y = y;
-                this.vx = (Math.random() - 0.5) * 4;
-                this.vy = (Math.random() - 0.5) * 4;
-                this.size = Math.random() * 3 + 1;
-                this.color = color;
-                this.life = 1;
-                this.decay = Math.random() * 0.02 + 0.005;
-                this.gravity = 0.1;
-            }
-            
-            update() {
-                this.x += this.vx;
-                this.y += this.vy;
-                this.vy += this.gravity;
-                this.life -= this.decay;
-                this.size *= 0.99;
-                
-                // Add some sparkle effect
-                this.vx *= 0.99;
-            }
-            
-            draw() {
-                ctx.save();
-                ctx.globalAlpha = this.life;
-                ctx.fillStyle = this.color;
-                ctx.beginPath();
-                ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
-                ctx.fill();
-                
-                // Add glow effect
-                ctx.shadowBlur = 15;
-                ctx.shadowColor = this.color;
-                ctx.fill();
-                ctx.restore();
-            }
-            
-            isDead() {
-                return this.life <= 0 || this.size <= 0.1;
-            }
-        }
-        
-        // Update particle color when color picker changes
-        function updateColor(newColor) {
-            currentColor = newColor;
-        }
-        
-        // Create particles
-        function createParticles(x, y, count = 5) {
-            for (let i = 0; i < count; i++) {
-                particles.push(new Particle(
-                    x + (Math.random() - 0.5) * 10,
-                    y + (Math.random() - 0.5) * 10,
-                    currentColor
-                ));
-            }
-        }
-        
-        // Animation loop
-        function animate() {
-            // Create trailing effect
-            ctx.fillStyle = 'rgba(0, 0, 0, 0.1)';
-            ctx.fillRect(0, 0, canvas.width, canvas.height);
-            
-            // Update and draw particles
-            for (let i = particles.length - 1; i >= 0; i--) {
-                const particle = particles[i];
-                particle.update();
-                particle.draw();
-                
-                // Remove dead particles
-                if (particle.isDead()) {
-                    particles.splice(i, 1);
-                }
-            }
-            
-            // Create particles continuously while mouse is pressed
-            if (mouseDown) {
-                createParticles(mouseX, mouseY, 3);
-            }
-            
-            requestAnimationFrame(animate);
-        }
-        
-        // Event listeners
-        colorPicker.addEventListener('change', (e) => {
-            updateColor(e.target.value);
-        });
-        
-        canvas.addEventListener('mousedown', (e) => {
-            mouseDown = true;
-            mouseX = e.clientX;
-            mouseY = e.clientY;
-            createParticles(mouseX, mouseY, 10);
-        });
-        
-        canvas.addEventListener('mouseup', () => {
-            mouseDown = false;
-        });
-        
-        canvas.addEventListener('mousemove', (e) => {
-            mouseX = e.clientX;
-            mouseY = e.clientY;
-        });
-        
-        canvas.addEventListener('click', (e) => {
-            createParticles(e.clientX, e.clientY, 15);
-        });
-        
-        // Handle window resize
-        window.addEventListener('resize', () => {
-            canvas.width = window.innerWidth;
-            canvas.height = window.innerHeight;
-        });
-        
-        // Handle touch events for mobile
-        canvas.addEventListener('touchstart', (e) => {
-            e.preventDefault();
-            const touch = e.touches[0];
-            mouseDown = true;
-            mouseX = touch.clientX;
-            mouseY = touch.clientY;
-            createParticles(mouseX, mouseY, 10);
-        });
-        
-        canvas.addEventListener('touchend', (e) => {
-            e.preventDefault();
-            mouseDown = false;
-        });
-        
-        canvas.addEventListener('touchmove', (e) => {
-            e.preventDefault();
-            const touch = e.touches[0];
-            mouseX = touch.clientX;
-            mouseY = touch.clientY;
-        });
-        
-        // Start animation
-        animate();
-        
-        // Create some initial particles for demonstration
-        setTimeout(() => {
-            for (let i = 0; i < 20; i++) {
-                createParticles(
-                    Math.random() * canvas.width,
-                    Math.random() * canvas.height,
-                    1
-                );
-            }
-        }, 500);
+  
